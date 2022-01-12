@@ -1,0 +1,16 @@
+C:\Users\endi\Desktop\VendingMachineConsoleApp\bin\Debug\net5.0\VendingMachineConsoleApp.exe
+C:\Users\endi\Desktop\VendingMachineConsoleApp\bin\Debug\net5.0\VendingMachineConsoleApp.deps.json
+C:\Users\endi\Desktop\VendingMachineConsoleApp\bin\Debug\net5.0\VendingMachineConsoleApp.runtimeconfig.json
+C:\Users\endi\Desktop\VendingMachineConsoleApp\bin\Debug\net5.0\VendingMachineConsoleApp.runtimeconfig.dev.json
+C:\Users\endi\Desktop\VendingMachineConsoleApp\bin\Debug\net5.0\VendingMachineConsoleApp.dll
+C:\Users\endi\Desktop\VendingMachineConsoleApp\bin\Debug\net5.0\ref\VendingMachineConsoleApp.dll
+C:\Users\endi\Desktop\VendingMachineConsoleApp\bin\Debug\net5.0\VendingMachineConsoleApp.pdb
+C:\Users\endi\Desktop\VendingMachineConsoleApp\obj\Debug\net5.0\VendingMachineConsoleApp.csproj.AssemblyReference.cache
+C:\Users\endi\Desktop\VendingMachineConsoleApp\obj\Debug\net5.0\VendingMachineConsoleApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\endi\Desktop\VendingMachineConsoleApp\obj\Debug\net5.0\VendingMachineConsoleApp.AssemblyInfoInputs.cache
+C:\Users\endi\Desktop\VendingMachineConsoleApp\obj\Debug\net5.0\VendingMachineConsoleApp.AssemblyInfo.cs
+C:\Users\endi\Desktop\VendingMachineConsoleApp\obj\Debug\net5.0\VendingMachineConsoleApp.csproj.CoreCompileInputs.cache
+C:\Users\endi\Desktop\VendingMachineConsoleApp\obj\Debug\net5.0\VendingMachineConsoleApp.dll
+C:\Users\endi\Desktop\VendingMachineConsoleApp\obj\Debug\net5.0\ref\VendingMachineConsoleApp.dll
+C:\Users\endi\Desktop\VendingMachineConsoleApp\obj\Debug\net5.0\VendingMachineConsoleApp.pdb
+C:\Users\endi\Desktop\VendingMachineConsoleApp\obj\Debug\net5.0\VendingMachineConsoleApp.genruntimeconfig.cache
