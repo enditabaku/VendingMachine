@@ -9,29 +9,28 @@ namespace VendingMachineConsoleApp
     class BuyingProcess
     {
         public double TotalAmount { set; get; }
-        public double LeftAmount { get; set; }
         public double CurrentProductPrice { get; set; }
         public BuyingProcess(double enteredAmount, double currentProductPrice = 0.00)
         {
-            TotalAmount = enteredAmount;
-            LeftAmount = enteredAmount;
+            TotalAmount = TotalAmount + enteredAmount;
             CurrentProductPrice = currentProductPrice;
         }
-        public void ShowTotalAmountEntered()
+        public double ShowTotalAmount()
         {
-            Console.WriteLine("Amount entered: " + TotalAmount + " Euro");
-        }
-        public void ShowTotalAmountLeft()
-        {
-
+            TotalAmount = Math.Round(TotalAmount, 2);
+            return TotalAmount;
         }
         public void AmountDeduction()
         {
             TotalAmount = TotalAmount - CurrentProductPrice;
         }
+        public void StartAgain()
+        {
+            TotalAmount = 0;
+        }
         public bool HasEnoughMoney()
         {
-            if (LeftAmount > CurrentProductPrice)
+            if (TotalAmount > CurrentProductPrice)
             {
                 return true;
             }

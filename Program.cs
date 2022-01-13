@@ -10,18 +10,18 @@ namespace VendingMachineConsoleApp
     {
         //Global Variables:
         //Each array has all phrases used in the application in their specific language
-        static string[] english = { "Hi again!", "Please to insert your coins type: ENTER 0.15 (if you insert 15cts).If you need help type --help" };
-        static string[] deutsch = { "Hallo nochmal!", "Bitte geben Sie Ihren Münztyp ein: Geben Sie 0,15 ein(wenn Sie 15 ct einwerfen).Wenn Sie Hilfe benötigen, geben Sie ein --help" };
-        static string[] french = { "Hi again!", "Please to insert your coins type: ENTER 0.15 (if you insert 15cts).If you need help type --help" };
-        //Total number of sentences
-        static int totalSentences = english.Length;
+        static string[] english = { "Please to insert your coins type: ENTER 0.15 (if you insert 15cts or 1.00 for 1Euro).If you need help type --help", "Amount entered: ", "To show all product details press --show", "If you already know your product number, press SELECT Number", "If you want to enter more coins, press COINS and you'll get the instructions", "You don't have enough money for this product.", "Please choose another product.", "Wrong Syntax. Please try again to enter coins!", "The machine accepts only valid coins 5cts to 2Euro", "Try again to insert coins...", "We can not help you for the moment. Machine is broken :(", "Try again later.", "We are only using Euro. We will update our currencies in the future", "Unknown problem while reading product stocks. We are sorry :(", "There are ", " left", "number ", "The machine can take ", " other slot", "The machine can not take more slots", "  slots", "Amount left: ", "Product number ", " was dispensed", "Thank you for using our machine!", "Please take your change: ", };
+        static string[] deutsch = { "Bitte geben Sie Ihren Münztyp ein: ENTER 0.15 (wenn Sie 15 ct einwerfen oder 1,00 für 1Euro).Wenn Sie Hilfe benötigen, geben Sie ein --help", "Eingegebener Betrag: ", "Um alle Produktdetails anzuzeigen, drücken Sie --show", "Wenn Sie Ihre Produktnummer bereits kennen, drücken Sie SELECT Number", "Wenn Sie mehr Münzen eingeben möchten, drücken Sie COINS und Sie erhalten die Anweisungen.", "Sie haben nicht genug Geld für dieses Produkt.", "Bitte wählen Sie ein anderes Produkt.", "Falsche Syntax. Bitte versuchen Sie erneut, Münzen einzugeben!", "Der Automat akzeptiert nur gültige Münzen von 5 ct bis 2Euro", "Versuchen Sie erneut, Münzen einzuwerfen...", "Wir können Ihnen im Moment nicht helfen. Maschine ist kaputt :(", "Versuchen Sie es später noch einmal.", "Wir verwenden nur Euro. Wir werden unsere Währungen in Zukunft aktualisieren", "Unbekanntes Problem beim Lesen der Produktbestände. Es tut uns leid :(", "Es gibt ", " übrig", "nummer ", "Die Maschine kann es nehmen ", " anderer Steckplatz", "Die Maschine kann nicht mehr Slots nehmen", "  Schlüssel", "Restbetrag: ", "Produktnummer ", " wurde abgegeben", "Danke, dass Sie unsere Maschine benutzen!", "Bitte nehmen Sie Ihr Wechselgeld: " };
+        static string[] french = { "Veuillez insérer votre type de pièces : ENTER 0.15 (si vous insérez 15 cts ou 1.00 pour 1Euro). Si vous avez besoin d'aide, tapez --help", "Montant saisi: ", "Pour afficher tous les détails du produit, appuyez sur --show", "Si vous connaissez déjà votre numéro de produit, appuyez sur SELECT Number", "Si vous voulez entrer plus de pièces, appuyez sur COINS et vous obtiendrez les instructions", "Sie haben nicht genug Geld für dieses Produkt.", "Veuillez choisir un autre produit.", "Mauvaise syntaxe. Veuillez réessayer d'entrer des pièces !", "La machine accepte uniquement les pièces valables de 5cts à 2Euro", "Essayez à nouveau d'insérer des pièces...", "Nous ne pouvons pas vous aider pour le moment. La machine est cassée :(", "Réessayez plus tard.", "Nous n'utilisons que l'euro. Nous mettrons à jour nos devises à l'avenir", "Problème inconnu lors de la lecture des stocks de produits. Nous sommes désolés :(", "Il y a ", " restants", "numéro ", "La machine peut prendre ", " autre emplacement ", "La machine ne peut pas prendre plus de créneaux", " créneaux ", "Montant restant: ", "Numéro de produit ", " a été dispensé ", "Merci d'utiliser notre machine !", "Veuillez prendre votre monnaie : " };
+        //Total coins
+        static double totalAmountOfCoins = 0;
         //Total number of slots
         static int slots = 3;
         //Price of selected product
-        static double productPrice = 0.00;
+        static double productPrice = 0;
 
         //method that generates help commands
-        static void ShowHelpCommands()
+        static void ShowHelpCommands(List<string> selectedLanguage)
         {
             String line;
             try
@@ -47,18 +47,18 @@ namespace VendingMachineConsoleApp
                 //keyinfo = Console.ReadKey();
                 //Console.WriteLine(keyinfo.Key + " was pressed");
                 string helpCommandByUser = Console.ReadLine();
-                TypeHelpCommands(helpCommandByUser);
+                TypeHelpCommands(helpCommandByUser, selectedLanguage);
             }
             catch (FileNotFoundException e)
             {
-                Console.WriteLine("We can not help you for the moment. Machine is broken :(");
-                Console.WriteLine("Try again later.");
+                Console.WriteLine(selectedLanguage[10]);
+                Console.WriteLine(selectedLanguage[11]);
             }
 
         }
 
         //method that reads user command after help commands are shown
-        static void TypeHelpCommands(string helpCommandByUser)
+        static void TypeHelpCommands(string helpCommandByUser, List<string> selectedLanguage)
         {
             bool repeatHelp = true;
             while (repeatHelp)
@@ -67,25 +67,29 @@ namespace VendingMachineConsoleApp
                 {
                     case "--currency":
                     case "currency":
-                        Console.WriteLine("We are only using Euro. We will update our currencies in the future");
+                        Console.WriteLine(selectedLanguage[12]);
                         repeatHelp = false;
                         break;
 
                     case "--help":
                     case "help":
-                        ShowHelpCommands();
+                        ShowHelpCommands(selectedLanguage);
                         repeatHelp = false;
                         break;
 
                     case "--slots":
                     case "slots":
-                        DisplaySlotsAmount();
+                        DisplaySlotsAmount(selectedLanguage);
                         repeatHelp = false;
                         break;
 
                     case "--show":
-                    case "shpw":
-                        ReadProductFile("DisplayProducts");
+                    case "show":
+                        ReadProductFile("DisplayProducts", selectedLanguage, 0);
+                        repeatHelp = false;
+                        break;
+
+                    default:
                         repeatHelp = false;
                         break;
 
@@ -125,7 +129,7 @@ namespace VendingMachineConsoleApp
         }
 
         //method to read product file
-        static void ReadProductFile(string fromFunction, int productId = 0)
+        static void ReadProductFile(string fromFunction, List<string> selectedLanguage, int productId = 0)
         {
             String line, product, stock, price, displayStock;
             int productStock, index = 0;
@@ -161,10 +165,10 @@ namespace VendingMachineConsoleApp
 
                         catch (FormatException fe2)
                         {
-                            Console.WriteLine("Unknown problem while readinf product stockss. We are sorry :(");
+                            Console.WriteLine(selectedLanguage[13]);
                             continue;
                         }
-                        Console.WriteLine("There are" + stock + "  " + product + " left");
+                        Console.WriteLine(selectedLanguage[14] + stock + "  " + product + selectedLanguage[15]);
                     }
                     //if there are no left products write sold out
                     if (productStock == 0)
@@ -173,20 +177,13 @@ namespace VendingMachineConsoleApp
                     }
                     else
                     {
-                        if (productStock == 1)
-                        {
-                            displayStock = productStock + " Item Left";
-                        }
-                        //if there are more than one products write item in plural
-                        else
-                        {
-                            displayStock = productStock + " Items Left";
-                        }
+                            displayStock = productStock + selectedLanguage[15];
                     }
 
-                    if (fromFunction == "DisplayProducts") { DisplayProducts(index, product, price, displayStock); }
-                    if (fromFunction == "GetProductDetails"){ 
-                        if(index == productId)
+                    if (fromFunction == "DisplayProducts") { DisplayProducts(index, product, price, displayStock, selectedLanguage); }
+                    if (fromFunction == "GetProductDetails")
+                    {
+                        if (index == productId)
                         {
                             GetProductPrice(price);
                         }
@@ -207,27 +204,27 @@ namespace VendingMachineConsoleApp
         }
 
         //method to display current product stocks
-        static void DisplayProducts(int id, string product, string price, string displayStock)
+        static void DisplayProducts(int id, string product, string price, string displayStock, List<string> selectedLanguage)
         {
-            Console.WriteLine("number " + id + " ." + product + " " + price + "Euro" + " - " + displayStock);
+            Console.WriteLine(selectedLanguage[16] + id + " ." + product + " " + price + "Euro" + " - " + displayStock);
         }
 
         //method to display slots
-        static void DisplaySlotsAmount()
+        static void DisplaySlotsAmount(List<string> selectedLanguage)
         {
             if (slots == 1)
             {
-                Console.WriteLine("The machine can take" + slots + " other slot");
+                Console.WriteLine(selectedLanguage[17] + slots + selectedLanguage[18]);
             }
             else
             {
                 if (slots == 0)
                 {
-                    Console.WriteLine("The machine can not take more slots");
+                    Console.WriteLine(selectedLanguage[19]);
                 }
                 else
                 {
-                    Console.WriteLine("The machine can take" + slots + " other slots");
+                    Console.WriteLine(selectedLanguage[17] + slots + selectedLanguage[20]);
                 }
             }
 
@@ -239,13 +236,26 @@ namespace VendingMachineConsoleApp
             productPrice = Convert.ToDouble(price);
         }
 
-
+        //method to indicate the end of buying process
+        static void FinishBuying(double amountLeft, List<string> selectedLanguage, int id)
+        {
+            amountLeft = Math.Round(amountLeft, 2);
+            Console.WriteLine(selectedLanguage[21] + amountLeft + " Euro");
+            Console.WriteLine(selectedLanguage[22] + id + selectedLanguage[23]);
+            Thread.Sleep(300);
+            Console.WriteLine(selectedLanguage[24]);
+            Thread.Sleep(300);
+            Console.WriteLine(selectedLanguage[25] + amountLeft);
+            Console.WriteLine(); Console.WriteLine();
+            totalAmountOfCoins = 0;
+            productPrice = 0;
+        }
 
         static void Main(string[] args)
         {
             //The selectedLanguage array will be filled with the informations in the language that user has chosen
             List<string> selectedLanguage = new List<string>();
-            bool entry = true; bool enterCoins = true;
+            bool entry = true; bool enterCoins = false;
 
             while (entry)
             {
@@ -261,24 +271,27 @@ namespace VendingMachineConsoleApp
                 {
                     case "en":
                         entry = false;
+                        enterCoins = true;
                         FillLanguageArray("e", selectedLanguage);
                         break;
 
                     case "de":
                         entry = false;
+                        enterCoins = true;
                         FillLanguageArray("d", selectedLanguage);
                         break;
 
                     case "fr":
                         entry = false;
+                        enterCoins = true;
                         FillLanguageArray("f", selectedLanguage);
                         break;
 
                     case "--help":
                     case "help":
-                        ShowHelpCommands();
-                        entry = false;
-                        break;
+                        ShowHelpCommands(selectedLanguage);
+                        entry = true;
+                        continue;
 
                     default:
                         Console.WriteLine("Unknown command. Please read again the information below!");
@@ -287,117 +300,160 @@ namespace VendingMachineConsoleApp
                         continue;
                 }
 
+
                 while (enterCoins)
                 {
-                    Console.WriteLine(selectedLanguage[0] + selectedLanguage[1]);
+                    Console.WriteLine(selectedLanguage[0]);
                     //starting the machine to work with coins
                     string coins = Console.ReadLine();
 
-                    if (coins.Length > 0)
+                    if (coins.ToLower() == "--help" || coins.ToLower() == "help")
                     {
-                        if (coins.ToLower() == "--help" || coins.ToLower() == "help")
+                        ShowHelpCommands(selectedLanguage);
+                    }
+
+                    if (coins.Length > 9)
+                    {
+                        if (coins.ToLower().Substring(0, 5) == "enter" && coins.ToLower().Substring(7, 1) == ".")
                         {
-                            ShowHelpCommands();
-                        }
+                            //slots--;
 
-                        if(coins.Length > 9)
-                        { 
-                            if (coins.ToLower().Substring(0, 5) == "enter" && coins.ToLower().Substring(7,1) == ".")
+                            //if (slots == 0)
+                            //{
+                            //    enterCoins = false;
+                            //    Console.WriteLine("You have inserted coins 3 times");
+                            //}
+                            //else { Console.WriteLine("You can also insert " + slots + " times coins"); }
+
+                            double amountEntered, pennys;
+                            bool selectNumber = true;
+                            try
                             {
-                                double amountEntered, pennys;
-                                bool selectNumber = true;
-                                try
+                                amountEntered = Convert.ToDouble(coins.Substring(6, 4));
+                                pennys = (int)(((decimal)amountEntered % 1) * 100);
+                                if (pennys % 5 == 0)
                                 {
-                                    amountEntered = Convert.ToDouble(coins.Substring(6, 4));
-                                    pennys = (int)(((decimal)amountEntered % 1) * 100);
-                                    if (pennys % 5 == 0)
+                                    totalAmountOfCoins = totalAmountOfCoins + amountEntered;
+                                    BuyingProcess process = new BuyingProcess(totalAmountOfCoins);
+                                    Console.WriteLine(selectedLanguage[1] + process.ShowTotalAmount());
+
+                                    while (selectNumber)
                                     {
-                                        BuyingProcess process = new BuyingProcess(amountEntered);
-                                        process.ShowTotalAmountEntered();
-                                        while (selectNumber)
+                                        Console.WriteLine(selectedLanguage[2]);
+                                        Thread.Sleep(500);
+                                        Console.WriteLine(selectedLanguage[3]);
+                                        Thread.Sleep(500);
+                                       // if (slots != 0)
+                                       // {
+                                            Console.WriteLine(selectedLanguage[4]);
+                                       // } 
+                                        string userCommand = Console.ReadLine();
+                                        switch (userCommand.ToLower())
                                         {
-                                            Console.WriteLine("To show all product details press --show");
-                                            Thread.Sleep(500);
-                                            Console.WriteLine("If you already know your product number, press SELECT Number");
-                                            string userCommand = Console.ReadLine();
-                                            switch (userCommand.ToLower())
-                                            {
-                                                case "--show":
-                                                case "show":
-                                                    ReadProductFile("DisplayProducts");
-                                                    break;
+                                            case "--show":
+                                            case "show":
+                                                ReadProductFile("DisplayProducts", selectedLanguage,0);
+                                                break;
 
-                                                case "1":
-                                                    selectNumber = false; 
-                                                    ReadProductFile("GetProductDetails", 1);
-                                                    process.CurrentProductPrice = productPrice;
-                                                    if (process.HasEnoughMoney())
-                                                    {
-                                                        process.AmountDeduction();
-                                                    }
-                                                    else
-                                                    {
-                                                        selectNumber = true;
-                                                        Console.WriteLine("You don't have enough money for this product.");
-                                                        Thread.Sleep(500);
-                                                        Console.WriteLine("Please choose another product.");
-                                                    }
-                                                    break;
+                                            case "select 1":
+                                                selectNumber = false;
+                                                ReadProductFile("GetProductDetails", selectedLanguage,1);
+                                                process.CurrentProductPrice = productPrice;
+                                                if (process.HasEnoughMoney())
+                                                {
+                                                    process.AmountDeduction();
+                                                    FinishBuying(process.ShowTotalAmount(), selectedLanguage, 1);
+                                                    enterCoins = false;
+                                                    //slots = 3;
+                                                }
+                                                else
+                                                {
+                                                    selectNumber = true;
+                                                    Console.WriteLine(selectedLanguage[5]);
+                                                    Thread.Sleep(500);
+                                                    Console.WriteLine(selectedLanguage[6]);
+                                                }
+                                                break;
 
-                                                case "2":
-                                                    selectNumber = false;
-                                                    ReadProductFile("GetProductDetails", 2);
-                                                    process.CurrentProductPrice = productPrice;
-                                                    break;
+                                            case "select 2":
+                                                selectNumber = false;
+                                                ReadProductFile("GetProductDetails", selectedLanguage,2);
+                                                process.CurrentProductPrice = productPrice;
+                                                if (process.HasEnoughMoney())
+                                                {
+                                                    process.AmountDeduction();
+                                                    FinishBuying(process.ShowTotalAmount(), selectedLanguage, 2);
+                                                    enterCoins = false;
+                                                    //slots = 3;
+                                                }
+                                                else
+                                                {
+                                                    selectNumber = true;
+                                                    Console.WriteLine(selectedLanguage[5]);
+                                                    Thread.Sleep(500);
+                                                    Console.WriteLine(selectedLanguage[6]);
+                                                }
+                                                break;
 
-                                                case "3":
-                                                    selectNumber = false;
-                                                    ReadProductFile("GetProductDetails", 3);
-                                                    process.CurrentProductPrice = productPrice;
-                                                    break;
+                                            case "select 3":
+                                                selectNumber = false;
+                                                ReadProductFile("GetProductDetails", selectedLanguage,3);
+                                                process.CurrentProductPrice = productPrice;
+                                                if (process.HasEnoughMoney())
+                                                {
+                                                    process.AmountDeduction();
+                                                    FinishBuying(process.ShowTotalAmount(), selectedLanguage, 3);
+                                                    enterCoins = false;
+                                                    //slots = 3;
+                                                }
+                                                else
+                                                {
+                                                    selectNumber = true;
+                                                    Console.WriteLine(selectedLanguage[5]);
+                                                    Thread.Sleep(500);
+                                                    Console.WriteLine(selectedLanguage[6]);
+                                                }
+                                                break;
 
-                                                default:
-                                                    Console.WriteLine("Invalid command. Try again!");
-                                                    break;
-                                            }
+                                            case "--help":
+                                            case "help":
+                                                ShowHelpCommands(selectedLanguage);
+                                                break;
+
+                                            case "coins":
+                                                selectNumber = false;
+                                                break;
+
+                                            default:
+                                                Console.WriteLine(selectedLanguage[7]);
+                                                break;
                                         }
-
                                     }
-                                    else
-                                    {
-                                        Console.WriteLine("The machine accepts only valid coins 5cts to 2Euro");
-                                        Thread.Sleep(500);
-                                        Console.WriteLine("Try again to insert coins...");
-                                        Thread.Sleep(500);
-                                    }
-                                        
                                 }
-                                catch (FormatException fe)
+                                else
                                 {
-                                    Console.WriteLine("Wrong Syntax. Please try again to enter coins!");
+                                    Console.WriteLine(selectedLanguage[8]);
+                                    Thread.Sleep(500);
+                                    Console.WriteLine(selectedLanguage[9]);
+                                    Thread.Sleep(500);
                                 }
                             }
-                            else
+                            catch (FormatException fe)
                             {
-                                Console.WriteLine("Wrong Syntax. Please try again to enter coins!");
+                                Console.WriteLine(selectedLanguage[7]);
                             }
                         }
                         else
                         {
-                            Console.WriteLine("Wrong Syntax. Please try again to enter coins!");
+                            Console.WriteLine(selectedLanguage[7]);
                         }
                     }
-
+                    else
+                    {
+                        Console.WriteLine(selectedLanguage[7]);
+                    }
                 }
-
-
             }
-
-
-
-
-
-
         }
     }
 }
