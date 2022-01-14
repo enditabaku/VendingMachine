@@ -9,10 +9,10 @@ namespace VendingMachineConsoleApp
     class Program
     {
         //Global Variables:
-        //Each array has all phrases used in the application in their specific language
-        static string[] english = { "Please to insert your coins type: ENTER 0.15 (if you insert 15cts or 1.00 for 1Euro).If you need help type --help", "Amount entered: ", "To show all product details press --show", "If you already know your product number, press SELECT Number", "If you want to enter more coins, press COINS and you'll get the instructions", "You don't have enough money for this product.", "Please choose another product.", "Wrong Syntax. Please try again to enter coins!", "The machine accepts only valid coins 5cts to 2Euro", "Try again to insert coins...", "We can not help you for the moment. Machine is broken :(", "Try again later.", "We are only using Euro. We will update our currencies in the future", "Unknown problem while reading product stocks. We are sorry :(", "There are ", " left", "number ", "The machine can take ", " other slot", "The machine can not take more slots", "  slots", "Amount left: ", "Product number ", " was dispensed", "Thank you for using our machine!", "Please take your change: ", };
-        static string[] deutsch = { "Bitte geben Sie Ihren Münztyp ein: ENTER 0.15 (wenn Sie 15 ct einwerfen oder 1.00 für 1Euro).Wenn Sie Hilfe benötigen, geben Sie ein --help", "Eingegebener Betrag: ", "Um alle Produktdetails anzuzeigen, drücken Sie --show", "Wenn Sie Ihre Produktnummer bereits kennen, drücken Sie SELECT Number", "Wenn Sie mehr Münzen eingeben möchten, drücken Sie COINS und Sie erhalten die Anweisungen.", "Sie haben nicht genug Geld für dieses Produkt.", "Bitte wählen Sie ein anderes Produkt.", "Falsche Syntax. Bitte versuchen Sie erneut, Münzen einzugeben!", "Der Automat akzeptiert nur gültige Münzen von 5 ct bis 2Euro", "Versuchen Sie erneut, Münzen einzuwerfen...", "Wir können Ihnen im Moment nicht helfen. Maschine ist kaputt :(", "Versuchen Sie es später noch einmal.", "Wir verwenden nur Euro. Wir werden unsere Währungen in Zukunft aktualisieren", "Unbekanntes Problem beim Lesen der Produktbestände. Es tut uns leid :(", "Es gibt ", " übrig", "nummer ", "Die Maschine kann es nehmen ", " anderer Steckplatz", "Die Maschine kann nicht mehr Slots nehmen", "  Schlüssel", "Restbetrag: ", "Produktnummer ", " wurde abgegeben", "Danke, dass Sie unsere Maschine benutzen!", "Bitte nehmen Sie Ihr Wechselgeld: " };
-        static string[] french = { "Veuillez insérer votre type de pièces : ENTER 0.15 (si vous insérez 15 cts ou 1.00 pour 1Euro). Si vous avez besoin d'aide, tapez --help", "Montant saisi: ", "Pour afficher tous les détails du produit, appuyez sur --show", "Si vous connaissez déjà votre numéro de produit, appuyez sur SELECT Number", "Si vous voulez entrer plus de pièces, appuyez sur COINS et vous obtiendrez les instructions", "Sie haben nicht genug Geld für dieses Produkt.", "Veuillez choisir un autre produit.", "Mauvaise syntaxe. Veuillez réessayer d'entrer des pièces !", "La machine accepte uniquement les pièces valables de 5cts à 2Euro", "Essayez à nouveau d'insérer des pièces...", "Nous ne pouvons pas vous aider pour le moment. La machine est cassée :(", "Réessayez plus tard.", "Nous n'utilisons que l'euro. Nous mettrons à jour nos devises à l'avenir", "Problème inconnu lors de la lecture des stocks de produits. Nous sommes désolés :(", "Il y a ", " restants", "numéro ", "La machine peut prendre ", " autre emplacement ", "La machine ne peut pas prendre plus de créneaux", " créneaux ", "Montant restant: ", "Numéro de produit ", " a été dispensé ", "Merci d'utiliser notre machine !", "Veuillez prendre votre monnaie : " };
+        //Each array has all phrases used in the application in their specific language : 28
+        static string[] english = { "Please to insert your coins type: ENTER 0.15 (if you insert 15cts or 1.00 for 1Euro).If you need help type --help", "Amount entered: ", "To show all product details press --show", "If you already know your product number, press SELECT Number", "If you want to enter more coins, press COINS and you'll get the instructions", "You don't have enough money for this product.", "Please choose another product.", "Wrong Syntax. Please try again to enter coins!", "The machine accepts only valid coins 5cts to 2Euro", "Try again to insert coins...", "We can not help you for the moment. Machine is broken :(", "Try again later.", "We are only using Euro. We will update our currencies in the future", "Unknown problem while reading product stocks. We are sorry :(", "There are ", " left", "number ", "The machine can take ", " other slot", "The machine can not take more slots", "  slots", "Amount left: ", "Product number ", " was dispensed", "Thank you for using our machine!", "Please take your change: ", "The minimum price of the products is 50 cents if you do not want to continue, type RETURN COINS or else thing to continue", "Take your coins and Thank you! :)" };
+        static string[] deutsch = { "Bitte geben Sie Ihren Münztyp ein: ENTER 0.15 (wenn Sie 15 ct einwerfen oder 1.00 für 1Euro).Wenn Sie Hilfe benötigen, geben Sie ein --help", "Eingegebener Betrag: ", "Um alle Produktdetails anzuzeigen, drücken Sie --show", "Wenn Sie Ihre Produktnummer bereits kennen, drücken Sie SELECT Number", "Wenn Sie mehr Münzen eingeben möchten, drücken Sie COINS und Sie erhalten die Anweisungen.", "Sie haben nicht genug Geld für dieses Produkt.", "Bitte wählen Sie ein anderes Produkt.", "Falsche Syntax. Bitte versuchen Sie erneut, Münzen einzugeben!", "Der Automat akzeptiert nur gültige Münzen von 5 ct bis 2Euro", "Versuchen Sie erneut, Münzen einzuwerfen...", "Wir können Ihnen im Moment nicht helfen. Maschine ist kaputt :(", "Versuchen Sie es später noch einmal.", "Wir verwenden nur Euro. Wir werden unsere Währungen in Zukunft aktualisieren", "Unbekanntes Problem beim Lesen der Produktbestände. Es tut uns leid :(", "Es gibt ", " übrig", "nummer ", "Die Maschine kann es nehmen ", " anderer Steckplatz", "Die Maschine kann nicht mehr Slots nehmen", "  Schlüssel", "Restbetrag: ", "Produktnummer ", " wurde abgegeben", "Danke, dass Sie unsere Maschine benutzen!", "Bitte nehmen Sie Ihr Wechselgeld: ", "Der Mindestpreis der Produkte beträgt 50 Cent Wenn Sie nicht fortfahren möchten, geben Sie RETURN COINS ein oder sonst etwas, um fortzufahren", "Nimm deine Münzen und danke! :)" };
+        static string[] french = { "Veuillez insérer votre type de pièces : ENTER 0.15 (si vous insérez 15 cts ou 1.00 pour 1Euro). Si vous avez besoin d'aide, tapez --help", "Montant saisi: ", "Pour afficher tous les détails du produit, appuyez sur --show", "Si vous connaissez déjà votre numéro de produit, appuyez sur SELECT Number", "Si vous voulez entrer plus de pièces, appuyez sur COINS et vous obtiendrez les instructions", "Sie haben nicht genug Geld für dieses Produkt.", "Veuillez choisir un autre produit.", "Mauvaise syntaxe. Veuillez réessayer d'entrer des pièces !", "La machine accepte uniquement les pièces valables de 5cts à 2Euro", "Essayez à nouveau d'insérer des pièces...", "Nous ne pouvons pas vous aider pour le moment. La machine est cassée :(", "Réessayez plus tard.", "Nous n'utilisons que l'euro. Nous mettrons à jour nos devises à l'avenir", "Problème inconnu lors de la lecture des stocks de produits. Nous sommes désolés :(", "Il y a ", " restants", "numéro ", "La machine peut prendre ", " autre emplacement ", "La machine ne peut pas prendre plus de créneaux", " créneaux ", "Montant restant: ", "Numéro de produit ", " a été dispensé ", "Merci d'utiliser notre machine !", "Veuillez prendre votre monnaie : ", "Le prix minimum des produits est de 50 cents si vous ne voulez pas continuer, tapez RETURN COINS sinon chose à continuer", "Prenez vos pièces et merci! :)" };
         //Total coins
         static double totalAmountOfCoins = 0;
         //Total number of slots
@@ -336,8 +336,9 @@ namespace VendingMachineConsoleApp
                     if (coins.ToLower() == "--help" || coins.ToLower() == "help")
                     {
                         ShowHelpCommands(selectedLanguage);
+                        break;
                     }
-                    break;
+                   
                     if (coins.Length > 9)
                     {
                         if (coins.ToLower().Substring(0, 5) == "enter" && coins.ToLower().Substring(7, 1) == ".")
@@ -360,6 +361,23 @@ namespace VendingMachineConsoleApp
                                 if (pennys % 5 == 0)
                                 {
                                     totalAmountOfCoins = totalAmountOfCoins + amountEntered;
+                                    if (totalAmountOfCoins < 0.50)
+                                    {
+                                        Console.WriteLine(selectedLanguage[26]);
+                                        string returnAnswer = Console.ReadLine();
+                                        if (returnAnswer == "RETURN COINS" || returnAnswer == "return coins")
+                                        {
+                                            Console.WriteLine(selectedLanguage[27]);
+                                            Console.WriteLine();
+                                            Console.WriteLine();
+                                            Console.WriteLine("--------------------");
+                                            Thread.Sleep(2000);
+                                            enterCoins = false;
+                                            entry = true;
+                                            totalAmountOfCoins = 0;
+                                            break;
+                                        }
+                                    }
                                     BuyingProcess process = new BuyingProcess(totalAmountOfCoins);
                                     Console.WriteLine(selectedLanguage[1] + process.ShowTotalAmount() + " Euro");
 
@@ -369,21 +387,21 @@ namespace VendingMachineConsoleApp
                                         Thread.Sleep(500);
                                         Console.WriteLine(selectedLanguage[3]);
                                         Thread.Sleep(500);
-                                       // if (slots != 0)
-                                       // {
-                                            Console.WriteLine(selectedLanguage[4]);
-                                       // } 
+                                        // if (slots != 0)
+                                        // {
+                                        Console.WriteLine(selectedLanguage[4]);
+                                        // } 
                                         string userCommand = Console.ReadLine();
                                         switch (userCommand.ToLower())
                                         {
                                             case "--show":
                                             case "show":
-                                                ReadProductFile("DisplayProducts", selectedLanguage,0);
+                                                ReadProductFile("DisplayProducts", selectedLanguage, 0);
                                                 break;
 
                                             case "select 1":
                                                 selectNumber = false;
-                                                ReadProductFile("GetProductDetails", selectedLanguage,1);
+                                                ReadProductFile("GetProductDetails", selectedLanguage, 1);
                                                 process.CurrentProductPrice = productPrice;
                                                 if (process.HasEnoughMoney())
                                                 {
@@ -404,7 +422,7 @@ namespace VendingMachineConsoleApp
 
                                             case "select 2":
                                                 selectNumber = false;
-                                                ReadProductFile("GetProductDetails", selectedLanguage,2);
+                                                ReadProductFile("GetProductDetails", selectedLanguage, 2);
                                                 process.CurrentProductPrice = productPrice;
                                                 if (process.HasEnoughMoney())
                                                 {
@@ -425,7 +443,7 @@ namespace VendingMachineConsoleApp
 
                                             case "select 3":
                                                 selectNumber = false;
-                                                ReadProductFile("GetProductDetails", selectedLanguage,3);
+                                                ReadProductFile("GetProductDetails", selectedLanguage, 3);
                                                 process.CurrentProductPrice = productPrice;
                                                 if (process.HasEnoughMoney())
                                                 {
@@ -474,6 +492,18 @@ namespace VendingMachineConsoleApp
                         }
                         else
                         {
+                            if (coins.ToLower() == "return coins")
+                            {
+                                //coins being returns
+                                Console.WriteLine(selectedLanguage[27]);
+                                Console.WriteLine();
+                                Console.WriteLine();
+                                Console.WriteLine("--------------------");
+                                Thread.Sleep(2000);
+                                entry = true;
+                                break;
+                            }
+
                             Console.WriteLine(selectedLanguage[7]);
                         }
                     }
