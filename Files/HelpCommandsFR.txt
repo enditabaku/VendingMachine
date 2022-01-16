@@ -1,0 +1,14 @@
+We are glad we can help you :) fr
+
+Listed below are the executable commands along with the relevant explanations:
+(Don't worry the commands are not case sensitive)
+
+--currency Information about the currency that the Vending Machine uses.
+
+--help   Provides Help information for Vending Machine commands.
+
+--slots Displays the how many slots are left.
+
+--show Displays the list of products with their prices and remaining stocks.
+
+If you do not need any of these press anything you want to continue.

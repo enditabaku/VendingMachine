@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Threading;
+
+
+//add while test
+//if product stock 0
 
 namespace VendingMachineConsoleApp
 {
@@ -25,59 +30,67 @@ namespace VendingMachineConsoleApp
         //method that generates help commands
         static void ShowHelpCommands(List<string> selectedLanguage)
         {
-            String line; String filePath;
-            try
+            string line;
+            string filePath;
+            int path = AppDomain.CurrentDomain.BaseDirectory.IndexOf("bin");
+            string fileName = AppDomain.CurrentDomain.BaseDirectory.Substring(0, path);
+            bool flag = true; //when flag is set to false it indicates that block of code has been executed without any errors or exceptions
+            while (flag)
             {
-                switch (lang)
+                try
                 {
-                    case "en":
-                        //CHANGE PATH TO A LOCAL PATH!
-                         filePath = Path.GetFullPath(@"C:\Users\endi\Desktop\HelpCommandsEN.txt");
-                        break;
+                    switch (lang)
+                    {
 
-                    case "de":
-                        //CHANGE PATH TO A LOCAL PATH!
-                        filePath = Path.GetFullPath(@"C:\Users\endi\Desktop\HelpCommandsDE.txt");
-                        break;
+                        case "en":  
+                            filePath = fileName + "Files\\HelpCommandsEN.txt";
+                            break;
 
-                    case "fr":
-                        //CHANGE PATH TO A LOCAL PATH!
-                        filePath = Path.GetFullPath(@"C:\Users\endi\Desktop\HelpCommandsFR.txt");
-                        break;
+                        case "de":
+                            filePath = fileName + "Files\\HelpCommandsDE.txt";
+                            break;
 
-                    default:
-                        //CHANGE PATH TO A LOCAL PATH!
-                        filePath = Path.GetFullPath(@"C:\Users\endi\Desktop\HelpCommandsEN.txt");
-                        break;
-                }
+                        case "fr":
+                            filePath = fileName + "Files\\HelpCommandsFR.txt";
+                            break;
 
-                //Pass the file path to the StreamReader constructor
-                StreamReader sr = new StreamReader(filePath);
-                //Read the first line of text
-                line = sr.ReadLine();
-                //Continue to read until the end of file
-                while (line != null)
-                {
-                    //write the line to console window
-                    Console.WriteLine(line);
-                    //Read the next line
+                        default:
+                            filePath = fileName + "Files\\HelpCommandsEN.txt";
+                            break;
+                    }
+
+                    //Pass the file path to the StreamReader constructor
+                    StreamReader sr = new StreamReader(filePath);
+                    //Read the first line of text
                     line = sr.ReadLine();
+                    //Continue to read until the end of file
+                    while (line != null)
+                    {
+                        //write the line to console window
+                        Console.WriteLine(line);
+                        //Read the next line
+                        line = sr.ReadLine();
+                    }
+                    //close the file
+                    sr.Close();
+
+                    string helpCommandByUser = Console.ReadLine();
+                    TypeHelpCommands(helpCommandByUser, selectedLanguage);
+
+                    flag = false;
                 }
-                //close the file
-                sr.Close();
+                catch (FileNotFoundException e)
+                {
+                    Console.WriteLine(selectedLanguage[10]);
+                    Console.WriteLine(selectedLanguage[11]);
+                }
 
-                //ConsoleKeyInfo keyinfo;
-                //keyinfo = Console.ReadKey();
-                //Console.WriteLine(keyinfo.Key + " was pressed");
-                string helpCommandByUser = Console.ReadLine();
-                TypeHelpCommands(helpCommandByUser, selectedLanguage);
+                catch (Exception e)
+                {
+                    Console.WriteLine("Unknown Error Occured :(");
+                }
             }
-            catch (FileNotFoundException e)
-            {
-                Console.WriteLine(selectedLanguage[10]);
-                Console.WriteLine(selectedLanguage[11]);
-            }
-
+            flag = true;
         }
 
         //method that reads user command after help commands are shown
@@ -159,73 +172,80 @@ namespace VendingMachineConsoleApp
         {
             String line, product, stock, price, displayStock;
             int productStock, index = 0;
-            try
+            bool flag = true;
+            while (flag)
             {
-                //CHANGE PATH TO A LOCAL PATH!
-                string filePath = Path.GetFullPath(@"C:\Users\endi\Desktop\EnglishProducts.txt");
-                //Pass the file path to the StreamReader constructor
-                StreamReader sr = new StreamReader(filePath);
-                //Read the first line of text: 
-                line = sr.ReadLine();
-                //Continue to read until the end of file
-                while (line != null)
+                try
                 {
-                    index++;
-                    //product name
-                    product = line.Substring(line.IndexOf(":") + 1, line.IndexOf("-") - 2);
-                    //product price
-                    price = line.Substring(line.LastIndexOf("-") + 1, 4);
-                    //product stock
-                    stock = line.Substring(line.IndexOf("-") + 1, 2);
-                    try
+                    int path = AppDomain.CurrentDomain.BaseDirectory.IndexOf("bin");
+                    string filePath = AppDomain.CurrentDomain.BaseDirectory.Substring(0, path) + "Files\\Products.txt";
+                    //Pass the file path to the StreamReader constructor
+                    StreamReader sr = new StreamReader(filePath);
+                    //Read the first line of text: 
+                    line = sr.ReadLine();
+                    //Continue to read until the end of file
+                    while (line != null)
                     {
-                        productStock = Convert.ToInt32(stock);
-                    }
-                    catch (FormatException fe1)
-                    {
+                        index++;
+                        //product name
+                        product = line.Substring(line.IndexOf(":") + 1, line.IndexOf("-") - 2);
+                        //product price
+                        price = line.Substring(line.LastIndexOf("-") + 1, 4);
+                        //product stock
+                        stock = line.Substring(line.IndexOf("-") + 1, 2);
                         try
                         {
-                            stock = stock.Remove(stock.Length - 1);
                             productStock = Convert.ToInt32(stock);
                         }
-
-                        catch (FormatException fe2)
+                        catch (FormatException fe1)
                         {
-                            Console.WriteLine(selectedLanguage[13]);
-                            continue;
+                            try
+                            {
+                                stock = stock.Remove(stock.Length - 1);
+                                productStock = Convert.ToInt32(stock);
+                            }
+
+                            catch (FormatException fe2)
+                            {
+                                Console.WriteLine(selectedLanguage[13]);
+                                continue;
+                            }
+                            Console.WriteLine(selectedLanguage[14] + stock + "  " + product + selectedLanguage[15]);
                         }
-                        Console.WriteLine(selectedLanguage[14] + stock + "  " + product + selectedLanguage[15]);
-                    }
-                    //if there are no left products write sold out
-                    if (productStock == 0)
-                    {
-                        displayStock = "SOLD OUT";
-                    }
-                    else
-                    {
+                        //if there are no left products write sold out
+                        if (productStock == 0)
+                        {
+                            displayStock = "SOLD OUT";
+                        }
+                        else
+                        {
                             displayStock = productStock + selectedLanguage[15];
-                    }
-
-                    if (fromFunction == "DisplayProducts") { DisplayProducts(index, product, price, displayStock, selectedLanguage); }
-                    if (fromFunction == "GetProductDetails")
-                    {
-                        if (index == productId)
-                        {
-                            GetProductPrice(price);
                         }
+
+                        if (fromFunction == "DisplayProducts") { DisplayProducts(index, product, price, displayStock, selectedLanguage); }
+                        if (fromFunction == "GetProductDetails")
+                        {
+                            if (index == productId)
+                            {
+                                GetProductPrice(price);
+                            }
+                        }
+
+                        //Read the next line
+                        line = sr.ReadLine();
                     }
+                    //close the file
+                    sr.Close();
+                    flag = false;
 
-                    //Read the next line
-                    line = sr.ReadLine();
                 }
-                //close the file
-                sr.Close();
+                catch (FileNotFoundException e)
+                {
+                    Console.WriteLine("We can not show you the stocks for the moment. Machine is broken :(");
+                    Console.WriteLine("Try again later.");
+                }
 
-            }
-            catch (FileNotFoundException e)
-            {
-                Console.WriteLine("We can not show you the stocks for the moment. Machine is broken :(");
-                Console.WriteLine("Try again later.");
+                flag = true;
             }
         }
 
@@ -277,6 +297,19 @@ namespace VendingMachineConsoleApp
             productPrice = 0;
         }
 
+        //method to write file: remove 1 product stock after a successful buying
+        static void MarkProductAsSold(int id)
+        {
+            int path = AppDomain.CurrentDomain.BaseDirectory.IndexOf("bin");
+            string fileName = AppDomain.CurrentDomain.BaseDirectory.Substring(0, path) + "Files\\Products.txt";
+            string[] arrAllLines = File.ReadAllLines(fileName);
+            string[] splitedLine = arrAllLines[id - 1].Split('-');
+            int productStockStr = Convert.ToInt32(splitedLine[1])-1;
+            string newLine = splitedLine[0] + "-" + productStockStr + "-" + splitedLine[2];
+            arrAllLines[id - 1] = newLine;
+            File.WriteAllLines(fileName, arrAllLines);
+        }
+
         static void Main(string[] args)
         {
             //The selectedLanguage array will be filled with the informations in the language that user has chosen
@@ -315,6 +348,7 @@ namespace VendingMachineConsoleApp
 
                     case "--help":
                     case "help":
+                        FillLanguageArray("e", selectedLanguage);
                         ShowHelpCommands(selectedLanguage);
                         entry = true;
                         continue;
@@ -338,7 +372,7 @@ namespace VendingMachineConsoleApp
                         ShowHelpCommands(selectedLanguage);
                         break;
                     }
-                   
+
                     if (coins.Length > 9)
                     {
                         if (coins.ToLower().Substring(0, 5) == "enter" && coins.ToLower().Substring(7, 1) == ".")
@@ -407,6 +441,7 @@ namespace VendingMachineConsoleApp
                                                 {
                                                     process.AmountDeduction();
                                                     FinishBuying(process.ShowTotalAmount(), selectedLanguage, 1);
+                                                    MarkProductAsSold(1);
                                                     enterCoins = false;
                                                     entry = true;
                                                     //slots = 3;
