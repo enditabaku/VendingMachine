@@ -1,14 +1,14 @@
-We are glad we can help you :)
+Wir freuen uns, dass wir dir helfen können :)
 
-Listed below are the executable commands along with the relevant explanations:
-(Don't worry the commands are not case sensitive)
+Nachfolgend sind die ausführbaren Befehle zusammen mit den entsprechenden Erläuterungen aufgeführt:
+(Keine Sorge, bei den Befehlen wird nicht zwischen Groß- und Kleinschreibung unterschieden)
 
---currency Information about the currency that the Vending Machine uses.
+--currency Informationen über die Währung, die der Verkaufsautomat verwendet.
 
---help   Provides Help information for Vending Machine commands.
+--help Stellt Hilfeinformationen für Vending Machine-Befehle bereit.
 
---slots Displays the how many slots are left.
+--slots Zeigt an, wie viele Slots übrig sind.
 
---show Displays the list of products with their prices and remaining stockssss.
+--show Zeigt die Liste der Produkte mit ihren Preisen und Restbeständen an.
 
-If you do not need any of these press anything you want to continue.
+Wenn Sie nichts davon benötigen, drücken Sie auf etwas, mit dem Sie fortfahren möchten.
